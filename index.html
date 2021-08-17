@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bKash Bank Limited</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div id="login-area">
+        <h1 class="text-center">Welcome to bKash Bank Limited</h1>
+        <div class="submit-area">
+            <h4>Login</h4>
+            <input type="text" name="" id="" placeholder="Enter your user name or E-mail" class="form-control">
+            <br>
+            <input type="password" name="" id="" placeholder="Enter your password" class="form-control">
+            <br>
+            <button id="login" class="btn btn-success">Enter</button>
+        </div>
+    </div>
+    <div id="transection-area">
+        <div class="row">
+            <div class="col-md-4 ">
+                <div class="deposit status">
+                    <h2>Deposit</h2>
+                    <h5>$ <span id="currentDeposit">00</span></h5>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="withdraw status">
+                    <h2>Withdraw</h2>
+                    <h5>$ <span id="currentWithdrawAmount">00</span></h5>
+                </div>
+            </div>
+            <div class="col-md-4 ">
+                <div class="balance status">
+                    <h2>Balance</h2>
+                    <h5>$ <span id="currentBalance">1500</span></h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="depositWithdraw-area">
+                    <h2>Deposit</h2>
+                    <input id="depositAmount" type="text" name="" id="" placeholder="$ Amount You Want To Deposit" class="form-control">
+                    <br>
+                    <button id="addDeposit" class="btn btn-success">Deposit</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="depositWithdraw-area">
+                    <h2>Withdraw</h2>
+                    <input id="withdrawAmount" type="text" name="" id="" placeholder="$ Amount You Want To Withdraw" class="form-control">
+                    <br>
+                    <button id="addWithdraw" class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //Login button event handler
+        const loginBtn = document.getElementById("login");
+        loginBtn.addEventListener("click", function () {
+            const loginArea = document.getElementById("login-area");
+            loginArea.style.display = "none";
+            const transectinArea = document.getElementById("transection-area");
+            transectinArea.style.display = "block";
+        })
+        //Transection area event handler
+        const depositBtn = document.getElementById("addDeposit");
+        depositBtn.addEventListener("click",function(){
+            const depositMoney = document.getElementById("depositAmount").value;
+            const depositNumber = parseFloat(depositMoney);
+
+            updateSpanText("currentDeposit",depositNumber);
+            updateSpanText("currentBalance",depositNumber);
+            document.getElementById("depositAmount").value = "";
+        })
+        function updateSpanText(id,depositNumber){
+            const currentBalance = document.getElementById(id).innerText;
+            const currentBalanceNumber = parseFloat(currentBalance);
+            const totalCurrentBalance = depositNumber + currentBalanceNumber;
+            document.getElementById(id).innerText = totalCurrentBalance;
+        }
+        // Event handler for withdraw area
+        const withdrawBtn = document.getElementById('addWithdraw');
+        withdrawBtn.addEventListener("click",function(){
+            const withdrawMoney = document.getElementById("withdrawAmount").value;
+            const withdrawMoneyNumber = parseFloat(withdrawMoney);
+            
+            updateWithdraw("currentWithdrawAmount",withdrawMoneyNumber);
+            updateWithdraw("currentBalance",-1*withdrawMoneyNumber);
+            document.getElementById("withdrawAmount").value = "";
+        })
+        function updateWithdraw(id, withdrawMoneyNumber ){
+            const currentWithdraw = document.getElementById(id).innerText;
+            const currentWithdrawNumber = parseFloat(currentWithdraw);
+            const totalWithdraw = withdrawMoneyNumber + currentWithdrawNumber;
+            document.getElementById(id).innerText = totalWithdraw;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
